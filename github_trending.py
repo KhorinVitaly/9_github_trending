@@ -14,18 +14,18 @@ def get_trending_repositories(top_size):
                          'sort': 'stars',
                          'order': 'desc'}
     response = requests.get('https://api.github.com/search/repositories', search_parameters)
-    result = response.json()
-    return result['items'][:top_size]
+    result_as_json = response.json()
+    return result_as_json['items'][:top_size]
 
 
 def get_open_issues_info(repo_owner, repo_name):
     url = 'https://api.github.com/repos/{0}/{1}/issues'.format(repo_owner, repo_name)
     response = requests.get(url, {'state': 'open'})
-    result = response.json()
+    result_as_json = response.json()
     if response.status_code == 200:
-        return ', Open issues amount: {0}'.format(len(result))
+        return ', Open issues amount: {0}'.format(len(result_as_json))
     else:
-        return ', Issues count failed: {0}'.format(result['message'])
+        return ', Issues count failed: {0}'.format(result_as_json['message'])
 
 
 if __name__ == '__main__':

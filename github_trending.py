@@ -1,15 +1,14 @@
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 def get_seven_days_ago_date():
-    current_date = datetime.today()
-    current_timestamp = current_date.timestamp()
-    return datetime.fromtimestamp(current_timestamp - (86400 * 7)).date()
+    current_date = datetime.today().date()
+    return current_date - timedelta(days=7)
 
 
 def get_trending_repositories(top_size):
-    isoformat_date = get_seven_days_ago_date.isoformat()
+    isoformat_date = get_seven_days_ago_date().isoformat()
     search_parameters = {'q': 'created:>{0}'.format(isoformat_date),
                          'sort': 'stars',
                          'order': 'desc'}
